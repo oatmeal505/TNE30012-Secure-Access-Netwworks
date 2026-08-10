@@ -11,12 +11,14 @@
             "id": "fa41668482d3f4ae",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "week 1/Week 1 lab.pdf"
+                "file": "week 2/week 2 lab.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "Week 1 lab"
+              "icon": "lucide-file",
+              "title": "week 2 lab"
             }
           }
         ]
@@ -199,8 +201,8 @@
   },
   "active": "fa41668482d3f4ae",
   "lastOpenFiles": [
-    "week 1/Week 1 lab.md",
     "week 1/Week 1 lab.pdf",
+    "week 1/Week 1 lab.md",
     "week 1/Week 1 notes.md",
     "week 1/Week 1 lab.docx",
     "week 2/week 2 lab.md",
