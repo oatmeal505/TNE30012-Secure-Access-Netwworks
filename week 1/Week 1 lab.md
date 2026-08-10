@@ -57,10 +57,16 @@ Pass Reflection
 1. Explain the importance of securing router access and monitoring network devices.
 	1. access should be secured to prevent bad actors from accessing or deleting sensitive data or device configurations, monitoring network devices helps us identify when an access attempt has been made and to identify potential vulnerabilities 
 2. What advantages does SSH have over Telnet?
-	1. The key advantage of SSH is 
+	1. The key advantage of SSH is the encryption of data that is transmited using the protocol, this includes the password used to access the switch preventing attackers from using man in the middle attacks or other methods of packet interseption from finding a plain text password.
 
 
 Credit questions 
 1. Question: Are you able to establish an SSH session with the switch? 
+	1. Yes
 
 2. Question: What versions of SSH are supported from the CLI? 
+	1.  both version 2 and 1.99 support CLI connections, cisco devices need to have ssh enabled but will be able to SSH via the CLI once done so
+
+Creddit reflection 
+1. How would you provide multiple users, each with their own username, access to a network device? 
+	1. with the tools that have been comunicated to us so far i would suggest making a set of credentials for each user on the local devices data base, SSH V2 can support multiple shells at the same time so this should not cause issues. in future labs we will learn about AAA servers which serve as a centeralized solution for storing user credentails for access which i would reccomend as a better solution for managing user credentials for SSH access across multiple devices
