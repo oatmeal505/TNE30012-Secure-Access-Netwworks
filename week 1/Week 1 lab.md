@@ -53,9 +53,14 @@
 14. Question: What users are connected to router R1 at this time?
 	1. Admin via the console, and admin via SSH
 
-Reflection
+Pass Reflection
 1. Explain the importance of securing router access and monitoring network devices.
-	1. 
-Type your answers here.
+	1. access should be secured to prevent bad actors from accessing or deleting sensitive data or device configurations, monitoring network devices helps us identify when an access attempt has been made and to identify potential vulnerabilities 
 2. What advantages does SSH have over Telnet?
-	1. 
+	1. The key advantage of SSH is 
+
+
+Credit questions 
+1. Question: Are you able to establish an SSH session with the switch? 
+
+2. Question: What versions of SSH are supported from the CLI? 
