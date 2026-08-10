@@ -1,0 +1,325 @@
+R1 
+
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+enable secret 5 $1$.TQn$oEx2PWdaa7/7J36r5Irg3/
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO211806H7
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.1.1 255.255.255.252
+ negotiation auto
+!
+interface Serial0/1/0
+ ip address 10.1.1.1 255.255.255.252
+!
+interface Serial0/1/1
+ no ip address
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ negotiation auto
+!
+router ospf 1
+ passive-interface GigabitEthernet0/0/1
+ network 10.1.1.0 0.0.0.3 area 0
+ network 192.168.1.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+no ip http server
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+parser view admin1
+ secret 5 $1$sRMS$3PAxwTTyZBqNXZQ6xG.pS0
+ commands exec include all configure terminal
+ commands exec include configure
+ commands exec include all show
+ commands exec include all debug
+!
+parser view admin2
+ secret 5 $1$OJfA$5FDglyPPbTKLwl/ZKwNiB/
+ commands exec include all show
+!
+parser view tech
+ secret 5 $1$oFs1$Ouj6HiF79L6oqRczq505c/
+ commands exec include show ip interface
+ commands exec include show ip
+ commands exec include show version
+ commands exec include show parser view
+ commands exec include show parser
+ commands exec include show interfaces
+ commands exec include show
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+
+R3
+
+
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+enable secret 5 $1$yWk2$2416HAXiRhGh4w/JxLKve/
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO2144302L
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.3.1 255.255.255.0
+ negotiation auto
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+!
+interface Serial0/1/1
+ ip address 10.2.2.1 255.255.255.252
+!
+interface Serial0/2/0
+ no ip address
+ shutdown
+!
+interface Serial0/2/1
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ passive-interface GigabitEthernet0/0/1
+ network 10.2.2.0 0.0.0.3 area 0
+ network 192.168.3.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+parser view admin1
+ secret 5 $1$.yaX$Bm3XmIhTuPwOVlyVqnGhv1
+ commands exec include all configure terminal
+ commands exec include configure
+ commands exec include all show
+ commands exec include all debug
+!
+parser view admin2
+ secret 5 $1$9XfU$c6uXkkq1lbRRhVm5jPHe21
+ commands exec include all show
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
