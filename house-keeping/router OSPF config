@@ -1,0 +1,56 @@
+conf t 
+hostname R1 
+int s0/1/0
+ip address 10.1.1.1 255.255.255.0
+no shut 
+exi 
+int g0/0/1
+ip address 192.168.1.1 255.255.255.0
+no shut 
+exi 
+no ip domain-lookup
+
+router ospf 1 
+network 192.168.1.0 0.0.0.255 area 0 
+network 10.1.1.0 0.0.0.3 area 0 
+passive-interface g0/0/1 
+exi
+
+#####################################################################################################################
+
+conf t 
+hostname R2 
+int s0/1/0
+ip address 10.1.1.2 255.255.255.0
+no shut 
+exi 
+int s0/1/1
+ip address 10.2.2.2 255.255.255.0
+no shut 
+exi 
+no ip domain-lookup
+
+router ospf 1 
+network 10.2.2.0 0.0.0.3 area 0
+network 10.1.1.0 0.0.0.3 area 0  
+exi
+
+#####################################################################################################################
+
+conf t 
+hostname R3
+int s0/1/1
+ip address 10.2.2.1 255.255.255.0
+no shut 
+exi 
+int g0/0/1
+ip address 192.168.3.1 255.255.255.0
+no shut 
+exi 
+no ip domain-lookup
+
+router ospf 1 
+network 192.168.3.0 0.0.0.255 area 0 
+network 10.2.2.0 0.0.0.3 area 0 
+passive-interface g0/0/1 
+exi
