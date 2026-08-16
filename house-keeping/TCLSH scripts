@@ -1,0 +1,61 @@
+Router ROUTER_RESET.TCL
+_________________
+
+tclsh
+puts [ open "flash:router_reset.tcl" w+ ] {
+typeahead "\n"
+copy running-config startup-config
+typeahead "\n"
+erase startup-config
+typeahead "\n"
+puts "Reloading the Router in 1 minute, type reload cancel to halt"
+typeahead "\n"
+reload in 1 
+}
+tclquit
+
+
+run this script by entering "tclsh router_reset.tcl"
+
+ALS Switch 1 and 2 ALS_RESET.TCL
+_________________________________
+
+tclsh
+puts [ open "flash:als_reset.tcl" w+ ] {
+typeahead "\n"
+copy running-config startup-config
+typeahead "\n"
+erase startup-config
+delete /force vlan.dat
+delete /force multiple-fs
+ios_config "sdm prefer lanbase-routing"
+typeahead "\n"
+puts "Reloading the switch in 1 minute, type reload cancel to halt"
+typeahead "\n"
+reload in 1 ALS_RESET.TCL SCRIPT RUN
+}
+tclquit
+
+
+run this script by entering "tclsh als_reset.tcl"
+
+DLS Switch 3 and 4 DLS_RESET.TCL
+________________________________
+
+tclsh
+puts [ open "flash:dls_reset.tcl" w+ ] {
+typeahead "\n"
+copy running-config startup-config
+typeahead "\n"
+erase startup-config
+delete /force vlan.dat
+delete /force multiple-fs
+typeahead "\n"
+puts "Reloading the switch in 1 minute, type reload cancel to halt"
+typeahead "\n"
+reload in 1
+}
+tclquit
+
+run this script by entering "tclsh dls_reset.tcl"
+
