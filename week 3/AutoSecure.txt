@@ -1,0 +1,67 @@
+no service finger
+no service pad
+no service udp-small-servers
+no service tcp-small-servers
+service password-encryption
+service tcp-keepalives-in
+service tcp-keepalives-out
+no cdp run
+no ip bootp server
+no ip http server
+no ip finger
+no ip source-route
+no ip gratuitous-arps
+banner motd ^C Unauthorized Access Prohibited ^C
+security passwords min-length 6
+security authentication failure rate 10 log
+enable secret 5 $1$lubv$Rdx4gHUcijbxV7p2z76/71
+enable password 7 110A1016141D5D5B5C737B
+username admin password 7 02050D4808095E731F1A5C
+aaa new-model
+aaa authentication login local_auth local
+line console 0
+login authentication local_auth
+exec-timeout 5 0
+transport output telnet
+line aux 0
+login authentication local_auth
+exec-timeout 10 0
+transport output telnet
+line vty 0 4
+login authentication local_auth
+transport input telnet
+line tty 1
+login authentication local_auth
+exec-timeout 15 0
+login block-for 60 attempts 2 within 30
+ip domain-name www.netsec.com
+crypto key generate rsa general-keys modulus 1024
+ip ssh time-out 60
+ip ssh authentication-retries 2
+line vty 0 4
+transport input ssh telnet
+service timestamps debug datetime msec localtime show-timezone
+service timestamps log datetime msec localtime show-timezone
+logging facility local2
+logging trap debugging
+service sequence-numbers
+logging console critical
+logging buffered
+int GigabitEthernet0/0/0
+no ip redirects
+no ip proxy-arp
+no ip unreachables
+no ip directed-broadcast
+no ip mask-reply
+int GigabitEthernet0/0/1
+no ip redirects
+no ip proxy-arp
+no ip unreachables
+no ip directed-broadcast
+no ip mask-reply
+ip access-list extended 100
+permit udp any any eq bootpc
+interface GigabitEthernet0/0/0
+ip verify unicast source reachable-via rx 100
+!
+end
