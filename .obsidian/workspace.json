@@ -199,8 +199,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fa41668482d3f4ae",
+  "active": "bc40c77b93867302",
   "lastOpenFiles": [
+    "week 3/Lab 3 - P",
+    "house-keeping/router OSPF config",
+    "house-keeping/TCLSH scripts",
+    "house-keeping",
     "week 3/ManualSecure.txt",
     "week 3/AutoSecure.txt",
     "week 1/Week 1 lab.md",
@@ -211,9 +215,6 @@
     "week 3",
     "week 2/lab 2 P",
     "week 1/Week 1 notes.md",
-    "week 1/Week 1 lab.docx",
-    "week 2",
-    "week 1/TNE30012 Lab1-2.docx",
-    "week 1"
+    "week 1/Week 1 lab.docx"
   ]
 }
