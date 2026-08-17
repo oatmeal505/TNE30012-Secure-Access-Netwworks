@@ -1,0 +1,606 @@
+EIGRP MSG 
+*Aug 16 23:37:16.616: EIGRP: Sending HELLO on Se0/1/0 - paklen 60
+*Aug 16 23:37:16.616:   AS 1, Flags 0x0:(NULL), Seq 0/0 interfaceQ 0/0 iidbQ un/rely 0/0
+*Aug 16 23:37:17.472: EIGRP: received packet with MD5 authentication, key id = 1
+*Aug 16 23:37:17.472: EIGRP: Received HELLO on Se0/1/0 - paklen 60 nbr 10.1.1.2
+*Aug 16 23:37:17.472:   AS 1, Flags 0x0:(NULL), Seq 0/0 interfaceQ 0/0 iidbQ un/rely 0/0 peerQ un/rely 0/0
+
+R1
+
+R1#sh ip eigrp nei
+EIGRP-IPv4 Neighbors for AS(1)
+H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
+                                                   (sec)         (ms)       Cnt Num
+0   10.1.1.2                Se0/1/0                  12 00:10:29    2   100  0  17
+
+R1#sh ip eigrp interfaces
+EIGRP-IPv4 Interfaces for AS(1)
+                              Xmit Queue   PeerQ        Mean   Pacing Time   Multicast    Pending
+Interface              Peers  Un/Reliable  Un/Reliable  SRTT   Un/Reliable   Flow Timer   Routes
+Se0/1/0                  1        0/0       0/0           2       0/12          50           0
+
+R2 
+
+R2#sh ip eigrp nei
+EIGRP-IPv4 Neighbors for AS(1)
+H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
+                                                   (sec)         (ms)       Cnt Num
+1   10.2.2.1                Se0/1/1                  14 00:10:41    3   100  0  11
+0   10.1.1.1                Se0/1/0                  12 00:11:43    1   100  0  8
+
+R2#sh ip eigrp interfaces
+EIGRP-IPv4 Interfaces for AS(1)
+                              Xmit Queue   PeerQ        Mean   Pacing Time   Multicast    Pending
+Interface              Peers  Un/Reliable  Un/Reliable  SRTT   Un/Reliable   Flow Timer   Routes
+Se0/1/0                  1        0/0       0/0           1       0/12          50           0
+Se0/1/1                  1        0/0       0/0           3       0/12          50           0
+
+R3
+
+R3#sh ip eigrp neighbors
+EIGRP-IPv4 Neighbors for AS(1)
+H   Address                 Interface              Hold Uptime   SRTT   RTO  Q  Seq
+                                                   (sec)         (ms)       Cnt Num
+0   10.2.2.2                Se0/1/1                  14 00:11:15    2   100  0  16
+
+R3#sh ip eigrp interfaces
+EIGRP-IPv4 Interfaces for AS(1)
+                              Xmit Queue   PeerQ        Mean   Pacing Time   Multicast    Pending
+Interface              Peers  Un/Reliable  Un/Reliable  SRTT   Un/Reliable   Flow Timer   Routes
+Se0/1/1                  1        0/0       0/0           2       0/12          50           0
+
+############################################################################################################################################################################################################################
+
+
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+security passwords min-length 10
+enable secret 9 $9$VLiObQdSX5N3Zg$L6/YZPqOWxzbrriumAfwGhnDMrLDnxPQOFnzqmIi28w
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name netsec.com
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+key chain NetAcad
+ key 1
+  key-string 7 1439171F3F01292021312021301A0911
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO2116036J
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username user01 secret 9 $9$ImAUs9J44Hr7Aw$Ud08RPlGSo2unCBJYjmBcTvmNGxx4ZRfe/ux/wBQ0uM
+username admin privilege 15 secret 9 $9$BRASKAGMlTwWDA$gqJnC7MF.0DC/jW31dAiVCHt082hHuPscUaBqY3xiwY
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.1.1 255.255.255.0
+ negotiation auto
+!
+interface Serial0/1/0
+ ip address 10.1.1.1 255.255.255.0
+ ip authentication mode eigrp 1 md5
+ ip authentication key-chain eigrp 1 NetAcad
+!
+interface Serial0/1/1
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+router eigrp 1
+ network 10.1.1.0 0.0.0.255
+ network 192.168.1.0
+ passive-interface default
+ no passive-interface Serial0/1/0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C Unauthorized access is strictly prohibited! ^C
+!
+line con 0
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input none
+ stopbits 1
+line aux 0
+ exec-timeout 5 0
+ login local
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ privilege level 15
+ login local
+ transport input ssh
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+############################################################################################################################################################################################################################
+
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+key chain NetAcad
+ key 1
+  key-string NetSeckeystring
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO21162L2S
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface Serial0/1/0
+ ip address 10.1.1.2 255.255.255.0
+ ip authentication mode eigrp 1 md5
+ ip authentication key-chain eigrp 1 NetAcad
+!
+interface Serial0/1/1
+ ip address 10.2.2.2 255.255.255.0
+ ip authentication mode eigrp 1 md5
+ ip authentication key-chain eigrp 1 NetAcad
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+router eigrp 1
+ network 10.1.1.0 0.0.0.3
+ network 10.2.2.0 0.0.0.3
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+############################################################################################################################################################################################################################
+
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+security authentication failure rate 10 log
+security passwords min-length 6
+logging console critical
+enable secret 5 $1$A8Mq$2wwssLFDt5qdemV8JI0SJ0
+enable password 7 1446405858512922372B3C
+!
+aaa new-model
+!
+!
+aaa authentication login local_auth local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+no ip source-route
+no ip gratuitous-arps
+!
+!
+!
+!
+!
+!
+!
+no ip bootp server
+no ip domain lookup
+ip domain name www.netsec.com
+!
+!
+!
+login block-for 60 attempts 2 within 30
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+key chain NetAcad
+ key 1
+  key-string 7 11271C1124170807013338303A3A3B25
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO21443004
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username admin password 7 104F0D140C19020A1F173D2F
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ ip verify unicast source reachable-via rx 100
+ negotiation auto
+ no mop enabled
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.3.1 255.255.255.0
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ negotiation auto
+ no mop enabled
+!
+interface Serial0/1/0
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+!
+interface Serial0/1/1
+ ip address 10.2.2.1 255.255.255.0
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ ip authentication mode eigrp 1 md5
+ ip authentication key-chain eigrp 1 NetAcad
+!
+interface Serial0/2/0
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+!
+interface Serial0/2/1
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ negotiation auto
+ no mop enabled
+!
+!
+router eigrp 1
+ network 10.2.2.0 0.0.0.3
+ network 192.168.3.0
+ passive-interface default
+ no passive-interface Serial0/1/1
+!
+ip forward-protocol nd
+no ip http server
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+!
+logging trap debugging
+logging facility local2
+access-list 100 permit udp any any eq bootpc
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C Unauthorised Access Prohibited ^C
+!
+line con 0
+ exec-timeout 5 0
+ login authentication local_auth
+ transport input none
+ transport output telnet
+ stopbits 1
+line aux 0
+ exec-timeout 15 0
+ login authentication local_auth
+ transport output telnet
+ stopbits 1
+line vty 0 4
+ login authentication local_auth
+ transport input telnet ssh
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+############################################################################################################################################################################################################################
+
+S1 and S3 are unchanged refer to prior config
