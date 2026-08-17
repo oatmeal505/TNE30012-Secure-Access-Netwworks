@@ -1,6 +1,12 @@
 ## Pass Task
 1. What security-related configuration changes were performed on R3 by AutoSecure that were not performed in previous sections of the lab on R1?
-	1. 
+	1. Ports: 
+		1.  no ip address - (only for interfaces without an address)
+		    no ip redirects
+		    no ip unreachables
+		    no ip proxy-arp
+		    ip verify unicast source reachable-via rx 100 - (Only for the port we designated as the internet port)
+	2. 
 2. What security-related configuration changes were performed in previous sections of the lab that were not performed by AutoSecure?
 	1. 
 3. Identify at least five unneeded services that were locked down by AutoSecure and at least three security measures applied to each interface. 
