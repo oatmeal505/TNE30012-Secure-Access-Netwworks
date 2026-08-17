@@ -1,0 +1,865 @@
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+security passwords min-length 10
+enable secret 9 $9$VLiObQdSX5N3Zg$L6/YZPqOWxzbrriumAfwGhnDMrLDnxPQOFnzqmIi28w
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name netsec.com
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+key chain NetAcad
+ key 1
+  key-string 7 0228014F38030C0A49571A0D171E1C0C
+   cryptographic-algorithm hmac-sha-256
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO2116036J
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username user01 secret 9 $9$ImAUs9J44Hr7Aw$Ud08RPlGSo2unCBJYjmBcTvmNGxx4ZRfe/ux/wBQ0uM
+username admin privilege 15 secret 9 $9$BRASKAGMlTwWDA$gqJnC7MF.0DC/jW31dAiVCHt082hHuPscUaBqY3xiwY
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.1.1 255.255.255.0
+ negotiation auto
+!
+interface Serial0/1/0
+ ip address 10.1.1.1 255.255.255.0
+ ip ospf authentication key-chain NetAcad
+!
+interface Serial0/1/1
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ passive-interface GigabitEthernet0/0/1
+ network 10.1.1.0 0.0.0.3 area 0
+ network 192.168.1.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C Unauthorized access is strictly prohibited! ^C
+!
+line con 0
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input none
+ stopbits 1
+line aux 0
+ exec-timeout 5 0
+ login local
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ privilege level 15
+ login local
+ transport input ssh
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+##############################################################################################################################################################################################################################################################################
+
+hostname R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+security authentication failure rate 10 log
+security passwords min-length 6
+logging console critical
+enable secret 5 $1$A8Mq$2wwssLFDt5qdemV8JI0SJ0
+enable password 7 1446405858512922372B3C
+!
+aaa new-model
+!
+!
+aaa authentication login local_auth local
+!
+!
+!
+!
+!
+!
+aaa session-id common
+no ip source-route
+no ip gratuitous-arps
+!
+!
+!
+!
+!
+!
+!
+no ip bootp server
+no ip domain lookup
+ip domain name www.netsec.com
+!
+!
+!
+login block-for 60 attempts 2 within 30
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+key chain NetAcad
+ key 1
+  key-string 7 002A1612375E080D0A385F5A1B100B10
+   cryptographic-algorithm hmac-sha-256
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO21443004
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username admin password 7 104F0D140C19020A1F173D2F
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ ip verify unicast source reachable-via rx 100
+ negotiation auto
+ no mop enabled
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.3.1 255.255.255.0
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ negotiation auto
+ no mop enabled
+!
+interface Serial0/1/0
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+!
+interface Serial0/1/1
+ ip address 10.2.2.1 255.255.255.0
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ ip ospf authentication key-chain NetAcad
+!
+interface Serial0/2/0
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+!
+interface Serial0/2/1
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ no ip redirects
+ no ip unreachables
+ no ip proxy-arp
+ negotiation auto
+ no mop enabled
+!
+router ospf 1
+ passive-interface GigabitEthernet0/0/1
+ network 10.2.2.0 0.0.0.3 area 0
+ network 192.168.3.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+no ip http server
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+ip ssh time-out 60
+ip ssh authentication-retries 2
+!
+!
+logging trap debugging
+logging facility local2
+access-list 100 permit udp any any eq bootpc
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C Unauthorised Access Prohibited ^C
+!
+line con 0
+ exec-timeout 5 0
+ login authentication local_auth
+ transport input none
+ transport output telnet
+ stopbits 1
+line aux 0
+ exec-timeout 15 0
+ login authentication local_auth
+ transport output telnet
+ stopbits 1
+line vty 0 4
+ login authentication local_auth
+ transport input telnet ssh
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+##############################################################################################################################################################################################################################################################################
+
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+key chain NetAcad
+ key 1
+  key-string NetSeckeystring
+   cryptographic-algorithm hmac-sha-256
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO21162L2S
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface Serial0/1/0
+ ip address 10.1.1.2 255.255.255.0
+ ip ospf authentication key-chain NetAcad
+!
+interface Serial0/1/1
+ ip address 10.2.2.2 255.255.255.0
+ ip ospf authentication key-chain NetAcad
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ network 10.1.1.0 0.0.0.3 area 0
+ network 10.2.2.0 0.0.0.3 area 0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
+
+##############################################################################################################################################################################################################################################################################
+
+hostname S1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+!
+ip http server
+ip http secure-server
+!
+!
+!
+line con 0
+line vty 5 15
+!
+end
+
+##############################################################################################################################################################################################################################################################################
+
+hostname S3
+!
+!
+vrf definition Mgmt-vrf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+no aaa new-model
+switch 1 provision ws-c3650-24ts
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+cpp system-default
+!
+!
+!
+diagnostic bootup level minimal
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+!
+redundancy
+ mode sso
+!
+!
+!
+class-map match-any system-cpp-police-topology-control
+  description Topology control
+class-map match-any system-cpp-police-sw-forward
+  description Sw forwarding, L2 LVX data, LOGGING
+class-map match-any system-cpp-default
+  description DHCP Snooping, EWLC control, EWCL data
+class-map match-any system-cpp-police-sys-data
+  description Learning cache ovfl, Crypto Control, Exception, EGR Exception, NFL SAMPLED DATA, Gold Pkt, RPF Failed
+class-map match-any system-cpp-police-punt-webauth
+  description Punt Webauth
+class-map match-any system-cpp-police-l2lvx-control
+  description L2 LVX control packets
+class-map match-any system-cpp-police-forus
+  description Forus Address resolution and Forus traffic
+class-map match-any system-cpp-police-multicast-end-station
+  description MCAST END STATION
+class-map match-any system-cpp-police-multicast
+  description Transit Traffic and MCAST Data
+class-map match-any system-cpp-police-l2-control
+  description L2 control
+class-map match-any system-cpp-police-dot1x-auth
+  description DOT1X Auth
+class-map match-any system-cpp-police-data
+  description ICMP redirect, ICMP_GEN and BROADCAST
+class-map match-any system-cpp-police-stackwise-virt-control
+  description Stackwise Virtual
+class-map match-any system-cpp-police-control-low-priority
+  description General punt
+class-map match-any non-client-nrt-class
+class-map match-any system-cpp-police-routing-control
+  description Routing control
+class-map match-any system-cpp-police-protocol-snooping
+  description Protocol snooping
+!
+policy-map system-cpp-policy
+ class system-cpp-police-data
+  police rate 600 pps
+ class system-cpp-police-sys-data
+  police rate 100 pps
+ class system-cpp-police-sw-forward
+  police rate 1000 pps
+ class system-cpp-police-multicast
+  police rate 500 pps
+ class system-cpp-police-multicast-end-station
+  police rate 2000 pps
+ class system-cpp-police-punt-webauth
+  police rate 1000 pps
+ class system-cpp-police-l2-control
+  police rate 2000 pps
+ class system-cpp-police-stackwise-virt-control
+  police rate 8000 pps
+ class system-cpp-police-routing-control
+  police rate 5400 pps
+ class system-cpp-police-control-low-priority
+  police rate 200 pps
+ class system-cpp-police-l2lvx-control
+  police rate 1000 pps
+ class system-cpp-police-topology-control
+  police rate 13000 pps
+ class system-cpp-police-dot1x-auth
+  police rate 1000 pps
+ class system-cpp-police-protocol-snooping
+  police rate 2000 pps
+ class system-cpp-police-forus
+  police rate 1000 pps
+ class system-cpp-default
+  police rate 1000 pps
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ vrf forwarding Mgmt-vrf
+ no ip address
+ shutdown
+ speed 1000
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+ service-policy input system-cpp-policy
+!
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
