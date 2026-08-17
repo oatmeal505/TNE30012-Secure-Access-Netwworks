@@ -1,0 +1,1 @@
+- for mini skills make sure to write notes for EIGRP, OSPF and RIP V2 
