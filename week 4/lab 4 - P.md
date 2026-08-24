@@ -1,6 +1,6 @@
 -----------------------------------------------------------
 ## Router 1 
-
+```cisco
 hostname R1
 !
 boot-start-marker
@@ -151,9 +151,10 @@ wsma agent notify
 !
 !
 end
-
+```
 -----------------------------------------------------------
 ## Router 2
+```cisco
 hostname R2
 !
 boot-start-marker
@@ -303,10 +304,10 @@ wsma agent notify
 !
 !
 end
-
+```
 -----------------------------------------------------------
 ## Router 3
-
+```cisco
 hostname R3
 !
 boot-start-marker
@@ -463,6 +464,7 @@ wsma agent filesys
 !
 wsma agent notify
 !
+```
 !
 end
 
