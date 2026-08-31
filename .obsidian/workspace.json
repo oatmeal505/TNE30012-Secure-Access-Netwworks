@@ -40,13 +40,11 @@
             "id": "01c78db58fe7f88a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "week 5/week 5 lab.md",
-                "mode": "source",
-                "source": false
+                "file": "week 5/week 5 lab.pdf"
               },
-              "icon": "lucide-file",
+              "icon": "lucide-file-text",
               "title": "week 5 lab"
             }
           }
@@ -229,12 +227,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "01c78db58fe7f88a",
+  "active": "174bc4fde8ef751a",
   "lastOpenFiles": [
+    "week 5/week 5 lab.md",
+    "week 5/week 5 lab.pdf",
     "week 5/week 5 notes.md",
     "week 5/lab 5 - P.md",
     "week 5/lab 5 - C.md",
-    "week 5/week 5 lab.md",
     "week 1/Week 1 lab.md",
     "week 4/week 4 lab.md",
     "week 4/week 4 lab.pdf",
@@ -254,7 +253,6 @@
     "week 3/Lab 3 - P",
     "house-keeping/router OSPF config",
     "house-keeping/TCLSH scripts",
-    "house-keeping",
     "week 1/Week 1 notes.md"
   ]
 }
