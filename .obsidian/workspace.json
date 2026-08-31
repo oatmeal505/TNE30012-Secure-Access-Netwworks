@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "week 2 lab"
             }
+          },
+          {
+            "id": "baccf408141efab3",
+            "type": "leaf",
+            "state": {
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "conflict-files-obsidian-git.md",
+                "bFile": "conflict-files-obsidian-git.md",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: conflict-files-obsidian-git  (Working Tree)"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -199,13 +214,20 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fa41668482d3f4ae",
+  "active": "baccf408141efab3",
   "lastOpenFiles": [
     "week 3/week 3 lab.md",
+    "conflict-files-obsidian-git.md",
+    "week 2/week 2 lab.md",
+    "week 4/week 4 lab.md",
+    "week 4/lab 4 - P.md",
+    "week 4/lab 4 - C.md",
+    "week 4",
+    "week 3/week 3 lab.pdf",
+    "house-keeping/router base config.md",
     "week 1/Week 1 lab.md",
     "week 3/week 3 notes.md",
     "week 2/week 2 lab.pdf",
-    "week 2/week 2 lab.md",
     "week 3/Lab 3 - D",
     "week 3/Lab 3 - P",
     "house-keeping/router OSPF config",
@@ -213,8 +235,6 @@
     "house-keeping",
     "week 3/ManualSecure.txt",
     "week 3/AutoSecure.txt",
-    "week 1/Week 1 lab.pdf",
-    "week 3",
     "week 1/Week 1 notes.md"
   ]
 }
