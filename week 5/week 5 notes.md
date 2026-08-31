@@ -3,6 +3,7 @@ logging sync + no console time out
 line console 0 
 logging synchronous 
 exec-timeout 0 0 
+end 
 ```
 password type commands 
 - Console
