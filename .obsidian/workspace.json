@@ -40,13 +40,11 @@
             "id": "01c78db58fe7f88a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "week 4/week 4 lab.md",
-                "mode": "source",
-                "source": false
+                "file": "week 4/week 4 lab.pdf"
               },
-              "icon": "lucide-file",
+              "icon": "lucide-file-text",
               "title": "week 4 lab"
             }
           }
@@ -231,13 +229,16 @@
   },
   "active": "174bc4fde8ef751a",
   "lastOpenFiles": [
+    "week 5",
+    "week 4/week 4 lab.md",
+    "week 4/week 4 lab.pdf",
+    "house-keeping/reset scripts + base config.md",
     "week 3/week 3 lab.md",
     "week 3/week 3 lab.pdf",
     "week 3/week 3 notes.md",
     "week 4/lab 4 - P.md",
     "week 4/lab 4 - C.md",
     "conflict-files-obsidian-git.md",
-    "week 4/week 4 lab.md",
     "week 4",
     "house-keeping/router base config.md",
     "week 2/week 2 lab.md",
@@ -249,7 +250,6 @@
     "house-keeping/TCLSH scripts",
     "house-keeping",
     "week 3/ManualSecure.txt",
-    "week 3/AutoSecure.txt",
     "week 1/Week 1 notes.md"
   ]
 }
