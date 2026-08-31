@@ -20,3 +20,12 @@ password ciscovtypass
 login
 end 
 ```
+local users 
+```cisco
+username user01 algorithm-type sha256 secret user01pass
+end 
+conf t 
+line console 0 
+login local 
+end 
+```

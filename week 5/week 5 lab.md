@@ -1,5 +1,6 @@
 ## Pass 
-1. Can you read the console, aux, and vty passwords? Explain.
+1. Can you read the console, aux, and vty passwords? 
+	1. Yes, we have not configured the ```service password-encryption``` command which enables all passwords stored in the running config to be encrypted
 2. Can you read the user’s password?
 3. Log in using the user01 account and password previously defined. What is the difference between logging in at the console now and previously?
 4. After logging in, issue the show run command. Were you able to issue the command?
