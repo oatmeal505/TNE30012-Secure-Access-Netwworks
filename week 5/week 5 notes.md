@@ -31,8 +31,13 @@ end
 ```
 ssh 
 ```cisco 
-transport input ssh 
+ip domain-name netsec.com
+line vty 0 4 
+privilege level 15 
 login local 
+transport input ssh 
+end 
+conf t 
 crypto key generate rsa general-keys modulus 1024
 ip ssh time-out 90
 ip ssh authentication-retries 2
