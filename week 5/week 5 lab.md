@@ -10,7 +10,9 @@
 5. Enter privileged EXEC mode using the enable command. Were you prompted for a password?
 	1. Yes, it was the enable password we configured earlier in the lab 
 6. Enable SSH on the vty lines, From PC-A, establish an SSH session with R1. Were you prompted for a user account? Explain.
+	1. Yes, since we configured SSH via the VTY line and specified local login it initiate the same process that we see when logging into the line console 
 7. While connected to R1 via SSH, access privileged EXEC mode with the enable command. What password did you use? 
+	1. Yes, but as with like the line console password it required the password we configured at the start of the lab for entering enable mode 
 ## Credit 
 1. Create a local user account with PDKDF2 hashing to encrypt the password. Can you read the user’s password in the running configuration? 
 2. Log in to the console as Admin01 with a password of Admin01pass. Were you able to log in?

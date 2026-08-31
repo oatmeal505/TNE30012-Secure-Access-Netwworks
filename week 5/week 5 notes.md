@@ -1,3 +1,9 @@
+logging sync + no console time out 
+```cisco 
+line console 0 
+logging synchronous 
+exec-timeout 0 0 
+```
 password type commands 
 - Console
 ```cisco
