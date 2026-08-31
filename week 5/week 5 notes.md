@@ -29,3 +29,12 @@ line console 0
 login local 
 end 
 ```
+ssh 
+```cisco 
+transport input ssh 
+login local 
+crypto key generate rsa general-keys modulus 1024
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+```

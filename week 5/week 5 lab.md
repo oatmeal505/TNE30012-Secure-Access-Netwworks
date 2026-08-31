@@ -2,9 +2,13 @@
 1. Can you read the console, aux, and vty passwords? 
 	1. Yes, we have not configured the ```service password-encryption``` command which enables all passwords stored in the running config to be encrypted
 2. Can you read the user’s password?
+	1. No, as the command that we used to configure the users password specified an encryption method to use, in this case sha256 
 3. Log in using the user01 account and password previously defined. What is the difference between logging in at the console now and previously?
+	1. when logging in to the console you are now asked for a username and password instead of entering 
 4. After logging in, issue the show run command. Were you able to issue the command?
+	1. no as we are not in privileged exec mode 
 5. Enter privileged EXEC mode using the enable command. Were you prompted for a password?
+	1. Yes, it was the enable password we configured earlier in the lab 
 6. Enable SSH on the vty lines, From PC-A, establish an SSH session with R1. Were you prompted for a user account? Explain.
 7. While connected to R1 via SSH, access privileged EXEC mode with the enable command. What password did you use? 
 ## Credit 
