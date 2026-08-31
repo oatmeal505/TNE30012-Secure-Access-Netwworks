@@ -42,12 +42,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "week 5/week 5 notes.md",
+                "file": "week 5/week 5 lab.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "week 5 notes"
+              "title": "week 5 lab"
             }
           }
         ],
@@ -229,12 +229,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "bc40c77b93867302",
+  "active": "01c78db58fe7f88a",
   "lastOpenFiles": [
+    "week 5/week 5 notes.md",
     "week 5/lab 5 - P.md",
     "week 5/lab 5 - C.md",
     "week 5/week 5 lab.md",
-    "week 5/week 5 notes.md",
     "week 1/Week 1 lab.md",
     "week 4/week 4 lab.md",
     "week 4/week 4 lab.pdf",
