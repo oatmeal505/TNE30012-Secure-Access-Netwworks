@@ -1,15 +1,61 @@
 ## Pass Task
 1. What security-related configuration changes were performed on R3 by AutoSecure that were not performed in previous sections of the lab on R1?
-	1. 
+	1. ```cisco 
+	   security authentication failure rate 
+	   logging console critical
+	   enable password 7
+	   aaa new-model
+	   aaa authentication login local_auth local
+	   
+	   ### on all unused interfaces 
+	   no ip redirects
+	   no ip unreachables
+	   no ip proxy-arp
+	   ip verify unicast source reachable-via rx 100
+	   
+	   ### on the internet port 
+	   vrf forwarding Mgmt-intf
+	   no ip address
+	   no ip redirects
+	   no ip unreachables
+	   no ip proxy-arp
+	   negotiation auto
+	   no mop enabled
+	   
+	   
+	   ```
 2. What security-related configuration changes were performed in previous sections of the lab that were not performed by AutoSecure?
-	1. 
+	1. ```cisco
+	   ### creating user01 
+	   username user01 secret 9  9$ImAUs9J44Hr7Aw$Ud08RPlGSo2unCBJYjmBcTvmNGxx4ZRfe/ux/wBQ0uM
+	   
+	   ip ssh authentication-retries 2 
+	   
+	   ### all unused ports where shutdown 
+	   ```
 3. Identify at least five unneeded services that were locked down by AutoSecure and at least three security measures applied to each interface. 
 	1. Services disabled include:
-		1. 
+		1. ```cisco 
+		  no ip bootp server
+		  no ip domain lookup
+		  no ip source-route
+		  no ip gratuitous-arps
+		  no license smart enable
+		   
+		   ```
 	2. For each interface, the following were disabled:
-		1. 
+		1. ```cisco 
+	   no ip redirects
+	   no ip unreachables
+	   no ip proxy-arp
+	   ip verify unicast source reachable-via rx 100
+	   no ip address 
+	   
+		   ```
 4. What are some advantages to using AutoSecure?
-	1. 
+	1. assumes lacking technical knowledge so asks specific questions and assumes the worst, thus the program employees all available security options. 
+	2. relatively quick, can complete in under a minute 
+	3. prevents human error, all options on form are yes or no and the only thing someone can make a mistake on is the username and password
 
 ## Credit task
 1. Ping PC-C using the serial address of R1 as the source IP. Did it work? Explain why it did or did not work!
