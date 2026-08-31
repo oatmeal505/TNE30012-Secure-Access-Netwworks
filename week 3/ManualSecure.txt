@@ -25,3 +25,171 @@ crypto key generate rsa general-keys modulus 1024
 ip ssh time-out 90
 ip ssh authentication-retries 2
 ip ssh version 2
+
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+security passwords min-length 10
+enable secret 9 $9$VLiObQdSX5N3Zg$L6/YZPqOWxzbrriumAfwGhnDMrLDnxPQOFnzqmIi28w
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name netsec.com
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+key chain NetAcad
+ key 1
+  key-string 7 0228014F38030C0A49571A0D171E1C0C
+   cryptographic-algorithm hmac-sha-256
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO2116036J
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username user01 secret 9 $9$ImAUs9J44Hr7Aw$Ud08RPlGSo2unCBJYjmBcTvmNGxx4ZRfe/ux/wBQ0uM
+username admin privilege 15 secret 9 $9$BRASKAGMlTwWDA$gqJnC7MF.0DC/jW31dAiVCHt082hHuPscUaBqY3xiwY
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.1.1 255.255.255.0
+ negotiation auto
+!
+interface Serial0/1/0
+ ip address 10.1.1.1 255.255.255.0
+ ip ospf authentication key-chain NetAcad
+!
+interface Serial0/1/1
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ passive-interface GigabitEthernet0/0/1
+ network 10.1.1.0 0.0.0.3 area 0
+ network 192.168.1.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+control-plane
+!
+banner motd ^C Unauthorized access is strictly prohibited! ^C
+!
+line con 0
+ exec-timeout 5 0
+ logging synchronous
+ login local
+ transport input none
+ stopbits 1
+line aux 0
+ exec-timeout 5 0
+ login local
+ stopbits 1
+line vty 0 4
+ exec-timeout 5 0
+ privilege level 15
+ login local
+ transport input ssh
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
