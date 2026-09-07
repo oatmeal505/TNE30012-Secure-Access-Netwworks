@@ -9,7 +9,7 @@ username user01 algorithm-type sha256 secret user01pass
 username admin privilege 15 algorithm-type sha256 secret cisco12345
 ip domain-name netsec.com
 host R1
-interface Serial0/1/1
+interface Serial0/1/0
 ip address 10.1.1.1 255.255.255.252
 no shutdown
 interface GigabitEthernet0/0/1
@@ -53,7 +53,7 @@ no shutdown
 router ospf 1
 passive-interface GigabitEthernet0/0/1
 network 10.1.1.0 0.0.0.3 area 0
-network 192.168.3.0 0.0.0.255 area 0
+network 10.2.2.0 0.0.0.3 area 0
 ip route 192.168.1.0 255.255.255.0 10.1.1.1
 ip route 192.168.3.0 255.255.255.0 10.2.2.1
 line con 0
@@ -81,7 +81,7 @@ username user01 algorithm-type sha256 secret user01pass
 username admin privilege 15 algorithm-type sha256 secret cisco12345
 ip domain-name netsec.com
 host R3
-interface Serial0/2/1
+interface Serial0/1/1
 ip address 10.2.2.1 255.255.255.252
 no shutdown
 interface GigabitEthernet0/0/1
