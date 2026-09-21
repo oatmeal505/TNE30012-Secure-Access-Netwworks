@@ -23,9 +23,6 @@ Yes, because the destination of these pings are being sent to the routers self s
 *Create the proper zone-pair, class-maps, and policy-maps and configure R3 to prevent Internet originating traffic from reaching the Self Zone.*
 
 ```cisco
-zone security self
-end
-
 configure terminal 
 class-map type inspect match-any SELF_PROTOCOLS
 match protocol tcp 
