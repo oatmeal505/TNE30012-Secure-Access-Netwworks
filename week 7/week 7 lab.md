@@ -41,5 +41,8 @@ inspect
 end
 
 configure terminal 
-zone-pair security SELF_TO_INTERNET source self
+zone-pair security SELF_TO_INTERNET source self destination INTERNET
+
+zone-pair security SELF_TO_INTERNET
+service-policy type inspect SELF_TO_INTERNET
 ```
