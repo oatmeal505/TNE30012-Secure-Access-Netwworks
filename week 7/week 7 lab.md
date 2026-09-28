@@ -44,14 +44,9 @@ zone-pair security SELF_TO_INTERNET
 service-policy type inspect SELF_TO_INTERNET
 ```
 
-## Distinction 
+## Distinction
+the following is the zone changes i have made to enable 2 different router sub interfaces communicate with each other while in the same zone 
 ```cisco
-int gi0/0/1.2
-encapsulation dot1q 2 
-ip address 200.100.2.1 255.255.255.0
-zone-member security INSIDE
-no shut 
-
 policy-map type inspect inside
 class class-default
 pass
@@ -61,3 +56,26 @@ zone-pair security inside source INSIDE destination INSIDE
 zone-pair security inside
 service-policy type inspect inside
 ```
+in order to test this i had to alter some aspets of other devices 
+
+### Router 3
+```cisco
+int gi0/0/1.2
+encapsulation dot1q 2 
+ip address 200.100.2.1 255.255.255.0
+zone-member security INSIDE
+no shut
+```
+### Switch 3 
+```cisco
+vlan 2
+name inside
+
+int gi1/0/24
+switchport vlan access 2 
+```
+### Router 2 
+```cisco
+ip route 200.100.2.0 255.255.255.0 172.16.2.1
+```
+with these changes I was able to confirm that PC B acting as my Vlan 3 PC and PC C acting as my VLAN 2 PC could ping each other while all other firewall properties were maintained 
