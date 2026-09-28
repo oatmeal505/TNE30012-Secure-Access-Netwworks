@@ -43,3 +43,21 @@ zone-pair security SELF_TO_INTERNET source self destination INTERNET
 zone-pair security SELF_TO_INTERNET
 service-policy type inspect SELF_TO_INTERNET
 ```
+
+## Distinction 
+```cisco
+int gi0/0/1.2
+encapsulation dot1q 2 
+ip address 200.100.2.1 255.255.255.0
+zone-member security INSIDE
+no shut 
+
+policy-map type inspect inside
+class class-default
+pass
+
+zone-pair security inside source INSIDE destination INSIDE
+
+zone-pair security inside
+service-policy type inspect inside
+```
