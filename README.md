@@ -198,7 +198,7 @@ crypto map CMAP
 end
 !
 ```
-#### Router 1 
+#### Router 3 
 ```cisco
 conf t 
 crypto isakmp enable 
