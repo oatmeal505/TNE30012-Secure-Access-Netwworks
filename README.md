@@ -152,8 +152,89 @@ crypto key generate rsa general-key modulus 2048
 ip ssh version 2 
 line vty 0 4 
 privilege level 15
-login local 
+login local
+
 transport input ssh
 end 
 ```
 ----------------------------------------------------
+## Generic VPN config 
+
+#### Router 1 
+```cisco
+conf t 
+crypto isakmp enable 
+crypto isakmp policy 10 
+hash sha 
+authentication pre-share 
+group 24 
+lifetime 3600
+encryption aes 256 
+end
+!
+conf t 
+crypto isakmp key cisco123 address 10.2.2.1 
+!
+crypto ipsec transform-set R1-R3 esp-aes 256 esp-sha-hmac
+!
+crypto ipsec security-association lifetime seconds 1800 
+end 
+!
+conf t 
+access-list 101 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255 
+!
+crypto map CMAP 10 ipsec-isakmp 
+match address 101 
+set peer 10.2.2.1
+set pfs group24 
+set transform-set R1-R3
+set security-association lifetime seconds 900
+!
+end
+!
+conf t 
+int s0/1/0
+crypto map CMAP
+end
+!
+```
+#### Router 1 
+```cisco
+conf t 
+crypto isakmp enable 
+crypto isakmp policy 10 
+crypto isakmp policy 10 
+hash sha 
+authentication pre-share 
+group 24 
+lifetime 3600
+encryption aes 256 
+end
+!
+conf t 
+crypto isakmp key cisco123 address 10.1.1.1 
+!
+crypto ipsec transform-set R1-R3 esp-aes 256 esp-sha-hmac
+exit
+!
+crypto ipsec security-association lifetime seconds 1800 
+end 
+!
+conf t 
+access-list 101 permit ip 192.168.3.0 0.0.0.255 192.168.1.0 0.0.0.255 
+!
+crypto map CMAP 10 ipsec-isakmp 
+match address 101 
+set peer 10.1.1.1
+set pfs group24 
+set transform-set R1-R3
+set security-association lifetime seconds 900
+!
+end
+!
+conf t 
+int S0/1/1
+crypto map CMAP
+end
+!
+```
