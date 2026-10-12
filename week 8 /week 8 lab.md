@@ -11,7 +11,7 @@ What does the message mean?
 ###### What appened to the message? 
 - setting S2's native vlan to VLAN99
 ###### What is the MAC address of the R1 G0/0/1 interface? 
-- TO DO
+- 706e.6d2a.9eal
 ###### On S1, issue the show port-security 
 - What is the Security Violation Count? 
 	- 1
@@ -26,4 +26,11 @@ What does the message mean?
 
 ## Credit 
 ###### Which command is used to verify that a port is protected? 
-- 
+```cisco
+show interfaces [interface-id] switchport
+```
+###### Which command is used to de-activate the PVLAN Edge feature? 
+```cisco 
+int [interface-id]
+no switchport protected 
+```

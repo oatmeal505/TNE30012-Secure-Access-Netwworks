@@ -218,8 +218,7 @@ interface FastEthernet0/12
  spanning-tree portfast
  spanning-tree bpduguard enable
  switchport access vlan 20
- switchport mode private-vlan host
- switchport private-vlan host-association 20 21
+ switchport protected 
 !
 interface FastEthernet0/13
 shutdown
@@ -265,6 +264,9 @@ shutdown
 !
 interface Vlan1
  ip address 192.168.1.2 255.255.255.0
+!
+vlan 20 
+name Users 
 !
 vlan 20 
 name Users 
@@ -401,8 +403,7 @@ interface FastEthernet0/24
  spanning-tree portfast
  spanning-tree bpduguard enable
  switchport access vlan 20
- switchport mode private-vlan host
- switchport private-vlan host-association 20 21
+ switchport protected
 !
 interface GigabitEthernet0/1
  spanning-tree guard root
@@ -413,12 +414,6 @@ shutdown
 !
 vlan 20 
 name Users 
-private-vlan primary
-private-vlan association 21
-!
-vlan 21 
-name Users-isolated
-private-vlan isolated
 !
 interface Vlan1
  ip address 192.168.1.3 255.255.255.0
