@@ -132,3 +132,28 @@ passive-interface g0/0/1
 exi
 exi
 ```
+
+----------------------------------------------------
+## Generic Users 
+```cisco
+conf t 
+security passwords min-length 10 
+enable algorithm-type scrypt secret cisco12345
+username admin01 algorithm-type scrypt secret admin01pass
+end
+```
+## SSH local auth 
+```cisco
+conf t 
+ip domain name netsec.com 
+crypto key zeroize RSA
+y
+crypto key generate rsa general-key modulus 2048
+ip ssh version 2 
+line vty 0 4 
+privilege level 15
+login local 
+transport input ssh
+end 
+```
+----------------------------------------------------
