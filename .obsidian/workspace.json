@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "week 9/week 9 lab.md",
+                "file": "week 10/week 9 lab.md",
                 "mode": "source",
                 "source": false
               },
@@ -199,12 +199,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0c9d088b4e220127",
+  "active": "174bc4fde8ef751a",
   "lastOpenFiles": [
+    "week 10/lab 10 config.md",
+    "week 9/week 9 lab config.md",
+    "week 10/week 9 lab.md",
+    "week 10/lab 10 P",
+    "week 10",
+    "week 9/week 9 lab config.pdf",
+    "week 9/week 9 lab.pdf",
+    "week 9/week 9 lab.md",
     "week 8 /week 8 lab.md",
     "week 8 /week 8 lab.pdf",
     "week 8 /week 8 lab C configs.md",
-    "week 9/week 9 lab.md",
     "week 9",
     "week 5/lab 5 - C.md",
     "week 5/lab 5 - P.md",
@@ -224,17 +231,11 @@
     "week 7/week 7 lab C.md",
     "week 3/week 3 lab.md",
     "week 7/week 7 lab D configs.pdf",
-    "week 7/week 7 lab P configs.pdf",
-    "week 7/week 7 lab C configs.pdf",
-    "week 8 ",
-    "week 7/week 7 lab.pdf",
     "week 6/week 6 lab P.md",
     "week 6/week 6 notes.md",
     "week 4/lab 4 - C.md",
     "week 3/week 3 notes.md",
     "week 1/Week 1 lab.md",
-    "week 5/week 5 notes.md",
-    "house-keeping/reset scripts + base config.md",
-    "week 4/lab 4 - P.md"
+    "week 5/week 5 notes.md"
   ]
 }
