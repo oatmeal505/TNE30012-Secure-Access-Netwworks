@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "week 10/week 9 lab.md",
+                "file": "week 10/week 10 lab.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "week 9 lab"
+              "title": "week 10 lab"
             }
           }
         ]
@@ -199,11 +199,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "174bc4fde8ef751a",
+  "active": "0c9d088b4e220127",
   "lastOpenFiles": [
     "week 10/lab 10 config.md",
     "week 9/week 9 lab config.md",
-    "week 10/week 9 lab.md",
+    "week 10/week 10 lab.md",
     "week 10/lab 10 P",
     "week 10",
     "week 9/week 9 lab config.pdf",
